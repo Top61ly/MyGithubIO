@@ -5,21 +5,62 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 从网页动态获取数据
     async function fetchUpdates() {
+        showLoadingState();
+
+        // 尝试从API获取数据
         try {
-            showLoadingState();
-            
-            // 尝试从API获取数据
-            const response = await fetch(API_URL);
-            if (!response.ok) throw new Error('Failed to fetch');
-            
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+            const response = await fetch(API_URL, {
+                signal: controller.signal,
+                mode: 'cors'
+            });
+            clearTimeout(timeoutId);
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
             const html = await response.text();
             parseAndExtractUpdates(html);
             renderUpdates();
         } catch (error) {
-            console.warn('动态获取失败，使用备用数据:', error);
-            loadFallbackUpdates();
-            renderUpdates();
+            console.error('获取数据失败:', error);
+            const errorMessage = getErrorMessage(error);
+            showErrorState(errorMessage);
         }
+    }
+
+    // 获取错误详细信息
+    function getErrorMessage(error) {
+        if (error.name === 'AbortError') {
+            return '请求超时 - 服务器响应时间过长';
+        }
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+            return '网络错误 - 无法连接到数据源，请检查网络连接';
+        }
+        if (error.message.includes('CORS') || error.message.includes('Cross-Origin')) {
+            return '跨域错误 - 数据源不支持跨域访问';
+        }
+        if (error.message.includes('HTTP')) {
+            return `服务器错误 - ${error.message}`;
+        }
+        return `未知错误 - ${error.message}`;
+    }
+
+    // 显示错误状态
+    function showErrorState(message) {
+        const listContainer = document.getElementById('updatesList');
+        listContainer.innerHTML = `
+            <div class="error-state">
+                <p class="error-title">⚠️ 数据加载失败</p>
+                <p class="error-message">${message}</p>
+                <p class="error-hint">将使用备用数据继续显示</p>
+            </div>
+        `;
+        loadFallbackUpdates();
+        renderUpdates();
     }
 
     // 解析HTML提取更新
