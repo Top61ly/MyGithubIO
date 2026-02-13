@@ -13,188 +13,225 @@ body {
 }
 
 .container {
-    background: #141414;
-    padding: 40px;
-    border-radius: 8px;
-    max-width: 900px;
+    display: flex;
+    gap: 40px;
+    max-width: 1100px;
     margin: 0 auto;
+}
+
+/* 左侧侧边栏 */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+.profile {
+    position: sticky;
+    top: 40px;
+    background: #141414;
     border: 1px solid #2a2a2a;
-}
-
-header {
+    border-radius: 8px;
+    padding: 30px 20px;
     text-align: center;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #2a2a2a;
 }
 
-h1 {
-    color: #fff;
-    font-size: 2em;
+.avatar {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #222;
+    border: 2px solid #333;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name {
+    font-size: 1.5em;
     font-weight: 300;
-    letter-spacing: 2px;
+    color: #fff;
     margin-bottom: 10px;
 }
 
-.subtitle {
-    color: #666;
+.bio {
     font-size: 0.9em;
-    font-weight: 300;
-    margin: 0;
-    letter-spacing: 1px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
 }
 
-.filters {
+.social-links {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
-.filter-btn {
-    background: transparent;
+.social-link {
     color: #666;
-    border: 1px solid #333;
-    padding: 8px 20px;
-    font-size: 0.85em;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.3s ease;
 }
 
-.filter-btn:hover {
-    border-color: #666;
+.social-link:hover {
     color: #999;
 }
 
-.filter-btn.active {
-    background: #fff;
-    color: #0a0a0a;
-    border-color: #fff;
+.contact-info {
+    font-size: 0.85em;
+    color: #555;
+    border-top: 1px solid #2a2a2a;
+    padding-top: 20px;
 }
 
-.updates-list {
-    display: grid;
+.contact-item {
+    margin-bottom: 8px;
+}
+
+/* 右侧内容区 */
+.content {
+    flex: 1;
+    min-width: 0;
+}
+
+.articles-header {
+    display: flex;
+    align-items: center;
     gap: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #2a2a2a;
 }
 
-.update-item {
-    background: #1a1a1a;
+.articles-header h2 {
+    font-size: 1.3em;
+    font-weight: 300;
+    color: #fff;
+}
+
+.article-count {
+    font-size: 0.85em;
+    color: #555;
+}
+
+.articles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.article-item {
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
     padding: 20px;
-    border-radius: 4px;
-    border-left: 2px solid #333;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.update-item:hover {
-    border-left-color: #666;
-    background: #1f1f1f;
+.article-item:hover {
+    border-color: #444;
+    background: #1a1a1a;
 }
 
-.update-item.video {
-    border-left-color: #555;
-}
-
-.update-item.article {
-    border-left-color: #555;
-}
-
-.update-item.tool {
-    border-left-color: #555;
-}
-
-.update-item h3 {
+.article-item h3 {
+    font-size: 1.1em;
+    font-weight: 400;
     color: #ccc;
     margin-bottom: 8px;
-    font-size: 1em;
-    font-weight: 400;
 }
 
-.update-category {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 3px;
-    font-size: 0.75em;
-    font-weight: 500;
-    margin-bottom: 10px;
-    background: #222;
-    color: #666;
+.article-item h3 a {
+    color: inherit;
+    text-decoration: none;
 }
 
-.update-description {
-    color: #666;
-    font-size: 0.9em;
-    line-height: 1.5;
-    margin-bottom: 10px;
+.article-item h3 a:hover {
+    color: #fff;
 }
 
-.update-meta {
+.article-meta {
     font-size: 0.8em;
-    color: #444;
+    color: #555;
+    margin-bottom: 10px;
 }
 
+.article-description {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* 加载状态 */
 .loading {
     text-align: center;
-    padding: 40px 20px;
+    padding: 60px 20px;
     color: #444;
 }
 
 .spinner {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #333;
-    border-top-color: #666;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #222;
+    border-top-color: #555;
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin-top: 10px;
+    margin: 0 auto 15px;
 }
 
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
 
-.update-link {
-    display: inline-block;
-    margin-top: 10px;
-    color: #666;
-    text-decoration: none;
-    font-size: 0.85em;
-    padding: 6px 12px;
+/* 分页 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.page-btn {
+    background: #141414;
     border: 1px solid #333;
-    border-radius: 3px;
+    color: #666;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
     transition: all 0.3s ease;
 }
 
-.update-link:hover {
-    border-color: #666;
+.page-btn:hover {
+    border-color: #555;
     color: #999;
 }
 
-.stats {
-    background: #1a1a1a;
-    color: #666;
-    padding: 15px;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 0.85em;
+.page-btn.active {
+    background: #fff;
+    color: #0a0a0a;
+    border-color: #fff;
 }
 
-#statsInfo {
-    margin: 0;
-    font-weight: 300;
+.page-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
+/* 错误状态 */
 .error-state {
-    background: #1a1a1a;
+    background: #141414;
     border: 1px solid #333;
     border-left: 2px solid #c0392b;
     padding: 20px;
-    border-radius: 4px;
+    border-radius: 8px;
     text-align: center;
-    margin-bottom: 20px;
 }
 
 .error-title {
@@ -204,13 +241,28 @@ h1 {
 }
 
 .error-message {
-    color: #888;
+    color: #666;
     font-size: 0.9em;
-    margin-bottom: 10px;
 }
 
-.error-hint {
+/* 空状态 */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
     color: #555;
-    font-size: 0.8em;
-    font-style: italic;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .profile {
+        position: static;
+    }
 }
