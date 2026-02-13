@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图形编程周刊 - 每日更新</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 图形编程周刊</h1>
+            <p class="subtitle">Graphics Programming Weekly Database - 每日精选更新</p>
+        </header>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="video">视频</button>
+            <button class="filter-btn" data-filter="article">文章</button>
+            <button class="filter-btn" data-filter="tool">工具</button>
+        </div>
+        
+        <div class="updates-list" id="updatesList">
+            <!-- 动态加载内容 -->
+        </div>
+        
+        <div class="stats">
+            <p id="statsInfo"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
